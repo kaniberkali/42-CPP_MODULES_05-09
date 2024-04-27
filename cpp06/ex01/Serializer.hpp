@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:37:50 by akaniber          #+#    #+#             */
-/*   Updated: 2024/04/27 17:45:36 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:28:56 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ struct Data
 
 class Serializer
 {
-	public:
+	private:
 		Serializer();
 		Serializer(Serializer const &serializer);
 		~Serializer();
 		Serializer & operator=(Serializer const &serializer);
+	public:
 		static uintptr_t serialize(Data* ptr);
         static Data* deserialize(uintptr_t raw);
 };

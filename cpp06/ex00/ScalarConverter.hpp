@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:42:38 by akaniber          #+#    #+#             */
-/*   Updated: 2024/04/27 17:45:27 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:29:33 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ class ScalarConverter
 	
 		static bool _nonDisplayable;
 		static bool _impossible;
+
+		ScalarConverter();
+		ScalarConverter(ScalarConverter const &scalarConverter);
+		~ScalarConverter();
+		ScalarConverter & operator=(ScalarConverter const &scalarConverter);
 	public:
 		static void convert(std::string input);
 
@@ -72,11 +77,6 @@ class ScalarConverter
 		static void printInt();
 		static void printFloat();
 		static void printDouble();
-	
-		ScalarConverter();
-		ScalarConverter(ScalarConverter const &scalarConverter);
-		~ScalarConverter();
-		ScalarConverter & operator=(ScalarConverter const &scalarConverter);
 };
 
 #endif

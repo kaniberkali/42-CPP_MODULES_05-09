@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:55:30 by akaniber          #+#    #+#             */
-/*   Updated: 2024/04/27 18:08:34 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:29:23 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void identify(Base &p)
 
 int     main( void )
 {
+	srand(time(NULL));
     Base*   a = generate();
     Base*   b = generate();
     Base*   c = generate();

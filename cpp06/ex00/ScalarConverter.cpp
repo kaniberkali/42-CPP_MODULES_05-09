@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:27:04 by akaniber          #+#    #+#             */
-/*   Updated: 2024/04/27 17:34:39 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:05:52 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,12 +220,12 @@ void ScalarConverter::toPseudoLiteral(std::string input)
 		_nan = true;
 		_nanFloat = true;
 	}
-	else if (input == "+inf")
+	else if (input == "+inf" || input == "+inff")
 	{
 		_positiveInfinity = true;
 		_positiveInfinityFloat = true;
 	}
-	else if (input == "-inf")
+	else if (input == "-inf" || input == "-inff")
 	{
 		_negativeInfinity = true;
 		_negativeInfinityFloat = true;
@@ -237,10 +237,6 @@ void ScalarConverter::toPseudoLiteral(std::string input)
 	}
 	else if (input == "nanf")
 		_nanFloat = true;
-	else if (input == "+inff")
-		_positiveInfinityFloat = true;
-	else if (input == "-inff")
-		_negativeInfinityFloat = true;
 	_impossible = true;
 }
 
