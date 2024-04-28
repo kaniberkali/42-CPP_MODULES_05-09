@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:49:14 by akaniber          #+#    #+#             */
-/*   Updated: 2024/04/27 17:34:33 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:50:10 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int main(int ac, char* av[])
     }
     ScalarConverter::convert(av[1]);
 	ScalarConverter::print();
+	
     return 0;
 }

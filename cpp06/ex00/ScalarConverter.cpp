@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:27:04 by akaniber          #+#    #+#             */
-/*   Updated: 2024/04/27 19:05:52 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:55:23 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,15 @@ ScalarConverter & ScalarConverter::operator=(ScalarConverter const &scalarConver
 
 bool ScalarConverter::isInt(std::string input)
 {
-	try
+	for (size_t i = 0; i < input.length(); i++)
 	{
-		for (size_t i = 0; i < input.length(); i++)
-		{
-			if (i == 0 && (input[i] == '-' || input[i] == '+'))
-				continue;
-			if (!isdigit(input[i]))
-				return false;
-		}
-		long long result = std::stoll(input);
-		return (result >= INT_MIN && result <= INT_MAX);
+		if (i == 0 && (input[i] == '-' || input[i] == '+'))
+			continue;
+		if (!isdigit(input[i]))
+			return false;
 	}
-	catch (std::exception &e)
-	{
-		return false;
-	}
+	long long result = atoll(input.c_str());
+	return (result >= INT_MIN && result <= INT_MAX);
 }
 
 bool ScalarConverter::isFloat(std::string input)
@@ -85,7 +78,7 @@ bool ScalarConverter::isFloat(std::string input)
     bool hasDot = false;
     bool hasE = false;
     bool hasSuffix = false;
-    for (size_t i = 0; i < input.size(); ++i)
+    for (size_t i = 0; i < input.length(); ++i)
 	{
         char c = input[i];
         if (std::isdigit(c))
@@ -101,7 +94,7 @@ bool ScalarConverter::isFloat(std::string input)
             if (hasE || !std::isdigit(input[0]))
                 return false;
             hasE = true;
-            if (i + 1 < input.size() && (input[i + 1] == '-' || input[i + 1] == '+'))
+            if (i + 1 < input.length() && (input[i + 1] == '-' || input[i + 1] == '+'))
                 ++i;
         }
 		else if (c == 'f' || c == 'F')
@@ -118,41 +111,27 @@ bool ScalarConverter::isFloat(std::string input)
 		else
             return false;
     }
-	try
+	if (std::isdigit(input[0]))
 	{
-		if (std::isdigit(input[0]))
-		{
-			long long result = std::stof(input);
-			return (result >= INT_MIN && result <= INT_MAX);
-		}
-		return false;
+		if (input[0] == '-' || input[0] == '+')
+			input = input.substr(1);
+		long long result = atof(input.c_str());
+		return (INT_MIN <= result && result <= INT_MAX);
 	}
-	catch (std::exception &e)
-	{
-		return false;
-	}
+	return false;
 }
 
 bool ScalarConverter::isDouble(std::string input)
 {
-	try
+	if (input[0] == '-' || input[0] == '+')
+		input = input.substr(1);
+	for (size_t i = 0; i < input.length(); i++)
 	{
-		if (input[0] == '-' || input[0] == '+')
-			input = input.substr(1);
-		for (size_t i = 0; i < input.length(); i++)
-		{
-			if (!isdigit(input[i]) || input[i] == '.')
-				return false;
-		}
-		long long result = std::stod(input);
-		if (result >= INT_MIN && result <= INT_MAX)
-			return true;
-		return false;
+		if (!isdigit(input[i]) || input[i] == '.')
+			return false;
 	}
-	catch (std::exception &e)
-	{
-		return false;
-	}
+	long long result = atof(input.c_str());
+	return (INT_MIN <= result && result <= INT_MAX);
 }
 
 bool ScalarConverter::isChar(std::string input)
@@ -181,7 +160,7 @@ int ScalarConverter::toInt(std::string input)
 {
 	if (isInt(input))
 	{
-		_intValue = std::stoi(input);
+		_intValue = atoi(input.c_str());
 		_charValue = static_cast<char>(_intValue);
 		_floatValue = static_cast<float>(_intValue);
 		_doubleValue = static_cast<double>(_intValue);
@@ -193,7 +172,7 @@ float ScalarConverter::toFloat(std::string input)
 {
 	if (isFloat(input))
 	{
-		_floatValue = std::stof(input);
+		_floatValue = atof(input.c_str());
 		_intValue = static_cast<int>(_floatValue);
 		_charValue = static_cast<char>(_intValue);
 		_doubleValue = static_cast<double>(_floatValue);
@@ -205,7 +184,7 @@ double ScalarConverter::toDouble(std::string input)
 {
 	if (isDouble(input))
 	{
-		_doubleValue = std::stod(input);
+		_doubleValue = atof(input.c_str());
 		_intValue = static_cast<int>(_doubleValue);
 		_charValue = static_cast<char>(_intValue);
 		_floatValue = static_cast<float>(_doubleValue);
