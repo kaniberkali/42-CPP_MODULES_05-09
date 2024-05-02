@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 15:21:55 by akaniber          #+#    #+#             */
-/*   Updated: 2024/05/02 16:51:45 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:57:23 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ class Array
 	public:
 		Array();
 		Array(unsigned int );
-		Array(const Array& copy);
+		Array(const Array& array);
 		~Array();
-		Array &operator=(const Array& copy);
+		Array &operator=(const Array& array);
 		T &operator[](const int index);
 		unsigned int size() const;
 };

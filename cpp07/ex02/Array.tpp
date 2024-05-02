@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:46:07 by akaniber          #+#    #+#             */
-/*   Updated: 2024/05/02 16:51:28 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:58:20 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ Array<T>::~Array()
 }
 
 template<typename T>
-Array<T>::Array(const Array& copy): _array(new T[copy._size]), _size(copy.size())
+Array<T>::Array(const Array& array): _array(new T[array._size]), _size(array.size())
 {
-    for (size_t i = 0; i < copy._size; ++i)
-        _array[i] = copy._array[i];
+    for (size_t i = 0; i < array._size; ++i)
+        _array[i] = array._array[i];
 }
 
 template<typename T>
-Array<T> &Array<T>::operator=(const Array& copy)
+Array<T> &Array<T>::operator=(const Array& array)
 {
-    if (this != &copy)
+    if (this != &array)
     {
         if (_array)
             delete[] _array;
-        _array = new T[copy._size];
-        _size = copy.size;
+        _array = new T[array._size];
+        _size = array.size;
         for (size_t i = 0; i < _size; ++i)
-            _array[i] = copy._array[i];
+            _array[i] = array._array[i];
     }
     return *this;
 }

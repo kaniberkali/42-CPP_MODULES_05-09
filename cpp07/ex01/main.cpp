@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 15:01:59 by akaniber          #+#    #+#             */
-/*   Updated: 2024/05/02 16:14:20 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:57:10 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <iostream>
 
 template <typename T>
-void print(T const &x)
+void print(T const &param)
 {
-	std::cout << x << std::endl;
+	std::cout << param << std::endl;
 }
 
 int main( void )
