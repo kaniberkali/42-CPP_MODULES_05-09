@@ -1,7 +1,7 @@
 NAME		= array
 SRC			= main.cpp
 OBJ			= $(SRC:.cpp=.o)
-HDR			= Array.hpp
+HDR			= Array.hpp Array.tpp
 CC			= c++
 RM 			= rm -rf
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
