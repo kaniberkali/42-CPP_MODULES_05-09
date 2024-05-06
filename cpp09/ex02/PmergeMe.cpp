@@ -6,13 +6,11 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:25:14 by akaniber          #+#    #+#             */
-/*   Updated: 2024/05/05 18:08:37 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:43:33 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-#include <cstdlib>
-#include <cstring>
 
 PmergeMe::PmergeMe() { }
 
@@ -20,15 +18,15 @@ PmergeMe::~PmergeMe() { }
 
 PmergeMe::PmergeMe(std::list<int> list, std::deque<int> deque) : _list(list), _deque(deque) { }
 
-PmergeMe::PmergeMe(const PmergeMe& other)
+PmergeMe::PmergeMe(const PmergeMe& pmergeme)
 {
-	*this = other;
+	*this = pmergeme;
 }
 
-PmergeMe& PmergeMe::operator=(const PmergeMe& other)
+PmergeMe& PmergeMe::operator=(const PmergeMe& pmergeme)
 {
-	_list = other._list;
-	_deque = other._deque;
+	_list = pmergeme._list;
+	_deque = pmergeme._deque;
 	return *this;
 }
 
@@ -64,7 +62,7 @@ void PmergeMe::pushNumbers(int ac, char** av)
 	{
 		n = atoi(av[i]);
 		if (!isInt(av[i]) || n < 0)
-			throw "Error: Invalid input.";
+			throw InvalidNumber();
 		_list.push_back(n);
 		_deque.push_back(n);
 	}
@@ -73,20 +71,20 @@ void PmergeMe::pushNumbers(int ac, char** av)
 }
 
 template<typename T>
-void PmergeMe::insertionSort(T& A, int p, int r)
+void PmergeMe::insertionSort(T& array, int start, int end)
 {
-	typename T::iterator it = A.begin();
-	typename T::iterator ite = A.begin();
-	std::advance(it, p);
-	std::advance(ite, r + 1);
-    while (it != ite && it != A.end())
+	typename T::iterator it = array.begin();
+	typename T::iterator itEnd = array.begin();
+	std::advance(it, start);
+	std::advance(itEnd, end + 1);
+    while (it != itEnd && it != array.end())
 	{
         typename T::iterator current = it;
         int temp = *it;
         typename T::iterator prev = it;
 		typename T::iterator next = prev;
 		++next;
-        while (prev != A.begin() && *(--prev) > temp)
+        while (prev != array.begin() && *(--prev) > temp)
 		{
             *current = *prev;
             current = prev;
@@ -98,22 +96,22 @@ void PmergeMe::insertionSort(T& A, int p, int r)
 }
 
 template<typename T>
-void merge(T& A, int p, int q, int r)
+void PmergeMe::mergeArrays(T& array, int start, int middle, int end)
 {
 	T left;
     T right;
 
-    typename T::iterator it = A.begin();
-    std::advance(it, p);
-    for (int i = p; i <= q; ++i)
+    typename T::iterator it = array.begin();
+    std::advance(it, start);
+    for (int i = start; i <= middle; ++i)
 	{
         left.push_back(*it);
         ++it;
     }
 
-    it = A.begin();
-    std::advance(it, q + 1);
-    for (int i = q + 1; i <= r; ++i)
+    it = array.begin();
+    std::advance(it, middle + 1);
+    for (int i = middle + 1; i <= end; ++i)
 	{
         right.push_back(*it);
         ++it;
@@ -121,8 +119,8 @@ void merge(T& A, int p, int q, int r)
 
     typename T::iterator leftIt = left.begin();
     typename T::iterator rightIt = right.begin();
-    typename T::iterator mergedIt = A.begin();
-    std::advance(mergedIt, p);
+    typename T::iterator mergedIt = array.begin();
+    std::advance(mergedIt, start);
 
     while (leftIt != left.end() && rightIt != right.end())
 	{
@@ -147,17 +145,17 @@ void merge(T& A, int p, int q, int r)
 }
 
 template<typename T>
-void PmergeMe::mergeInsert(T& A, int p, int r)
+void PmergeMe::mergeSort(T& array, int start, int end)
 {
-	if (r - p > K)
+	if (end - start > K)
 	{
-		int q = (p + r) / 2;
-		mergeInsert(A, p, q);
-		mergeInsert(A, q + 1, r);
-		merge(A, p, q, r);
+		int middle = (start + end) / 2;
+		mergeSort(array, start, middle);
+		mergeSort(array, middle + 1, end);
+		mergeArrays(array, start, middle, end);
 	}
 	else
-		insertionSort(A, p, r);
+		insertionSort(array, start, end);
 }
 
 void PmergeMe::printTime(timeval tv, std::string type)
@@ -170,16 +168,31 @@ void PmergeMe::printTime(timeval tv, std::string type)
 	<< type << " " << std::fixed << timePased << " us." << std::endl;
 }
 
-void PmergeMe::mergeMe(int ac, char **av)
+void PmergeMe::performSorting(int ac, char **av)
 {
 	pushNumbers(ac, av);
 	struct timeval tv;
 
 	gettimeofday(&tv, 0);
-    mergeInsert(_list, 0, _list.size() - 1);
+    mergeSort(_list, 0, _list.size() - 1);
 	printList("After:   ");
 	printTime(tv, "std::list");
 	gettimeofday(&tv, 0);
-    mergeInsert(_deque, 0, _deque.size() - 1);
+    mergeSort(_deque, 0, _deque.size() - 1);
 	printTime(tv, "std::deque");
+}
+
+std::list<int> PmergeMe::getList()
+{
+	return _list;
+}
+
+std::deque<int> PmergeMe::getDeque()
+{
+	return _deque;
+}
+
+size_t PmergeMe::getSize()
+{
+	return _size;
 }

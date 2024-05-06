@@ -6,14 +6,13 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 16:10:50 by akaniber          #+#    #+#             */
-/*   Updated: 2024/05/05 18:08:55 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:38:25 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include <fstream>
 #include <sstream>
-
 
 BitcoinExchange::BitcoinExchange()
 {

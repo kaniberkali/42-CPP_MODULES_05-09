@@ -6,7 +6,7 @@
 /*   By: akaniber <akaniber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:56:30 by akaniber          #+#    #+#             */
-/*   Updated: 2024/05/05 18:08:49 by akaniber         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:48:03 by akaniber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,37 +45,20 @@ void RPN::calculate(std::string input)
 			int number = c - '0';
 			numbers.push(number);
 		}
-		else if (c == '+' && numbers.size() >= 2)
+		else if ((c == '+' || c == '-' || c == '*' || c == '/') && numbers.size() >= 2)
 		{
 			double b = numbers.top();
 			numbers.pop();
 			double a = numbers.top();
 			numbers.pop();
-			numbers.push(a + b);
-		}
-		else if (c == '-' && numbers.size() >= 2)
-		{
-			double b = numbers.top();
-			numbers.pop();
-			double a = numbers.top();
-			numbers.pop();
-			numbers.push(a - b);
-		}
-		else if (c == '*' && numbers.size() >= 2)
-		{
-			double b = numbers.top();
-			numbers.pop();
-			double a = numbers.top();
-			numbers.pop();
-			numbers.push(a * b);
-		}
-		else if (c == '/' && numbers.size() >= 2)
-		{
-			double b = numbers.top();
-			numbers.pop();
-			double a = numbers.top();
-			numbers.pop();
-			numbers.push(a / b);
+			if (c == '+')
+				numbers.push(a + b);
+			else if (c == '-')
+				numbers.push(a - b);
+			else if (c == '*')
+				numbers.push(a * b);
+			else if (c == '/')
+				numbers.push(a / b);
 		}
 		else
 		{
